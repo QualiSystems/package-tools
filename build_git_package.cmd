@@ -1,4 +1,4 @@
-#@ECHO OFF
+@ECHO OFF
 pushd ..\%1
 IF EXIST dist RMDIR /q /s dist
 IF EXIST %2-1.0.0 RMDIR /q /s %2-1.0.0
