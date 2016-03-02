@@ -1,4 +1,3 @@
-@ECHO OFF
 pushd ..\%1
 IF EXIST dependencies RMDIR /q /s dependencies
 MKDIR dependencies
