@@ -1,4 +1,4 @@
-#pushd ..\%1
+pushd ..\%1
 
 cd %1
 dir
@@ -8,4 +8,4 @@ MKDIR dependencies
 
 %programdata%\qualisystems\qspython27\Scripts\pip download -r requirements.txt -d dependencies
 
-#popd
+popd
