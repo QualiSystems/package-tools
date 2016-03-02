@@ -6,7 +6,6 @@ dir
 IF EXIST dependencies RMDIR /q /s dependencies
 MKDIR dependencies
 
-%programdata%\qualisystems\qspython27\Scripts\pip install --download dependencies\ dist\%2.zip
-IF EXIST dependencies\%2.zip RMDIR /q /s dependencies\%2.zip
+%programdata%\qualisystems\qspython27\Scripts\pip download -r requirements.txt -d dependencies
 
 popd
