@@ -45,10 +45,7 @@ def extract_zip(zip_file, dest_folder):
     fh.close()
 
 def move_file_to_folder(src_file , dest_file):
-    try:
-        os.rename(src_file, dest_file)
-    except:
-        pass
+    os.rename(src_file, dest_file)
 
 def write2file(fname, output_str):
     fhandler = open(fname, 'w')
@@ -83,24 +80,29 @@ if __name__ == '__main__':
     # package folder cloudshell-networking-cisco-1.0.10
     # aggregate_cisco_packages Package 1.0.10
 
-    installation_package_name = 'cloudshell-networking-cisco-ios'
+    INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
     #pkg_path='..\Package\\networking-cisco-package-1.0.15'
     pkg_path = sys.argv[1]
 
     dependencies_folder_name = 'dependencies'
     local_path = os.getcwd()
+
     dependencies_dest_folder = os.path.join(pkg_path, dependencies_folder_name )
+    if not os.path.exists(dependencies_dest_folder):
+        os.mkdir(dependencies_dest_folder)
 
     for file in os.listdir(pkg_path):
         file_path = os.path.join(pkg_path, file)
 
-        if re.search(installation_package_name, file) or file == dependencies_folder_name:
+        if re.search(INSTALLATION_PACKAGE_NAME, file) or file == dependencies_folder_name:
+            print 'NOT moved {}'.format(file)
             continue
         elif re.search('-dependencies\.zip', file):
             extract_zip(file_path, dependencies_dest_folder)
             os.remove(file_path)
         else:
             move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
+            print 'moved {} to {}'.format(file,dependencies_dest_folder )
 
     #write_version_file(pkg_path)
     #write_setup_file(pkg_path)
