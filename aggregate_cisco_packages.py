@@ -18,7 +18,7 @@ with open('test_requirements.txt') as f_tests:
     required_for_tests = f_tests.read().splitlines()
 
 setup(
-    name='cloudshell-networking-cisco-ios',
+    name='cloudshell-networking-cisco-ios-package',
     url='http://www.qualisystems.com/',
     author='QualiSystems',
     author_email='info@qualisystems.com',
@@ -61,7 +61,7 @@ def write_version_file(pkg_path):
     pkg_version = res.group(1)
 
     # set version to file
-    ver_file_path = os.path.join(pkg_path, version_file_name)
+    ver_file_path = os.path.join(pkg_path, 'version.txt')
     write2file(ver_file_path, pkg_version)
 
 def write_manifest(pkg_path):
@@ -84,10 +84,10 @@ if __name__ == '__main__':
     # aggregate_cisco_packages Package 1.0.10
 
     installation_package_name = 'cloudshell-networking-cisco-ios'
-    pkg_path='..\Package\\networking-cisco-package-1.0.15'
-    dependencies_folder_name = 'Dependencies1'
-    version_file_name = 'version.txt'
+    #pkg_path='..\Package\\networking-cisco-package-1.0.15'
+    pkg_path = sys.argv[1]
 
+    dependencies_folder_name = 'dependencies'
     local_path = os.getcwd()
     dependencies_dest_folder = os.path.join(pkg_path, dependencies_folder_name )
 
@@ -102,8 +102,8 @@ if __name__ == '__main__':
         else:
             move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
 
-    write_version_file(pkg_path)
-    write_setup_file(pkg_path)
-    write_manifest(pkg_path)
-    write_readme(pkg_path)
+    #write_version_file(pkg_path)
+    #write_setup_file(pkg_path)
+    #write_manifest(pkg_path)
+    #write_readme(pkg_path)
 
