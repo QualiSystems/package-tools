@@ -3,6 +3,7 @@ import sys
 import os
 import re
 import zipfile
+import shutil
 
 SETUP_TEMPLATE="""
 from setuptools import setup, find_packages
@@ -88,21 +89,21 @@ if __name__ == '__main__':
     local_path = os.getcwd()
 
     dependencies_dest_folder = os.path.join(pkg_path, dependencies_folder_name )
-    if not os.path.exists(dependencies_dest_folder):
-        os.mkdir(dependencies_dest_folder)
+    if os.path.exists(dependencies_dest_folder):
+        shutil.rmtree(dependencies_dest_folder)
+
+    os.mkdir(dependencies_dest_folder)
 
     for file in os.listdir(pkg_path):
         file_path = os.path.join(pkg_path, file)
 
         if re.search(INSTALLATION_PACKAGE_NAME, file) or file == dependencies_folder_name:
-            print 'NOT moved {}'.format(file)
             continue
         elif re.search('-dependencies\.zip', file):
             extract_zip(file_path, dependencies_dest_folder)
             os.remove(file_path)
         else:
             move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
-            print 'moved {} to {}'.format(file,dependencies_dest_folder )
 
     #write_version_file(pkg_path)
     #write_setup_file(pkg_path)
