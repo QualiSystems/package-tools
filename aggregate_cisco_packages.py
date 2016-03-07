@@ -82,28 +82,49 @@ if __name__ == '__main__':
     # aggregate_cisco_packages Package 1.0.10
 
     INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
-    #pkg_path='..\Package\\networking-cisco-package-1.0.15'
-    pkg_path = sys.argv[1]
+    LOCAL_PACKAGES = 'local_packages'
+    pkg_path='..\Package\\networking-cisco-package'
+    #pkg_path = sys.argv[1]
 
     dependencies_folder_name = 'dependencies'
     local_path = os.getcwd()
 
     dependencies_dest_folder = os.path.join(pkg_path, dependencies_folder_name )
-    if os.path.exists(dependencies_dest_folder):
-        shutil.rmtree(dependencies_dest_folder)
+    #if os.path.exists(dependencies_dest_folder):
+    #    print 'Found {} folder, clearning'.format(dependencies_dest_folder)
+    #    shutil.rmtree(dependencies_dest_folder)
 
-    os.mkdir(dependencies_dest_folder)
+    #os.mkdir(dependencies_dest_folder)
 
     for file in os.listdir(pkg_path):
         file_path = os.path.join(pkg_path, file)
 
         if re.search(INSTALLATION_PACKAGE_NAME, file) or file == dependencies_folder_name:
             continue
+        elif re.search('[27]\.0', file):
+            os.remove(file_path)
         elif re.search('-dependencies\.zip', file):
             extract_zip(file_path, dependencies_dest_folder)
             os.remove(file_path)
+        elif re.search('cloudshell-automation-api*', file):
+            os.remove(file_path)
         else:
-            move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
+
+            try:
+                move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
+            except:
+                pass
+
+    # add cloudshell-* dependencies to  LOCAL_PACKAGES
+    local_packages_path = os.path.join(pkg_path, LOCAL_PACKAGES)
+    try:
+        shutil.copytree(LOCAL_PACKAGES, local_packages_path)
+    except:
+        pass
+
+    for file in os.listdir(dependencies_dest_folder):
+        if re.search('cloudshell-.*', file):
+            shutil.copy2(os.path.join(dependencies_dest_folder, file), local_packages_path)
 
     #write_version_file(pkg_path)
     #write_setup_file(pkg_path)
