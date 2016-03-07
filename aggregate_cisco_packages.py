@@ -83,8 +83,8 @@ if __name__ == '__main__':
 
     INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
     LOCAL_PACKAGES = 'local_packages'
-    pkg_path='..\Package\\networking-cisco-package-1.0.30'
-    #pkg_path = sys.argv[1]
+    #pkg_path='..\Package\\networking-cisco-package-1.0.30'
+    pkg_path = sys.argv[1]
 
     dependencies_folder_name = 'dependencies'
     local_path = os.getcwd()
@@ -93,6 +93,7 @@ if __name__ == '__main__':
     if os.path.exists(dependencies_dest_folder):
         print 'Found {} folder, clearning'.format(dependencies_dest_folder)
         shutil.rmtree(dependencies_dest_folder)
+
     os.mkdir(dependencies_dest_folder)
 
     for file in os.listdir(pkg_path):
