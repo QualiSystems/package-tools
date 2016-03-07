@@ -76,16 +76,18 @@ def write_setup_file(pkg_path):
     setup_file_name = os.path.join(pkg_path, 'setup.py')
     write2file(setup_file_name, SETUP_TEMPLATE)
 
+INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
 
 if __name__ == '__main__':
     # package folder cloudshell-networking-cisco-1.0.10
     # aggregate_cisco_packages Package 1.0.10
 
-    INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
+    global INSTALLATION_PACKAGE_NAME
     LOCAL_PACKAGES = 'local_packages'
     #pkg_path='..\Package\\networking-cisco-package-1.0.30'
     pkg_path = sys.argv[1]
-
+    if len(sys.argv) > 2:
+        INSTALLATION_PACKAGE_NAME =  sys.argv[2]
     dependencies_folder_name = 'dependencies'
     local_path = os.getcwd()
 
