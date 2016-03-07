@@ -81,7 +81,7 @@ if __name__ == '__main__':
     # package folder cloudshell-networking-cisco-1.0.10
     # aggregate_cisco_packages Package 1.0.10
 
-    INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
+    INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-juniper-junos'
     LOCAL_PACKAGES = 'local_packages'
     #pkg_path='..\Package\\networking-cisco-package-1.0.30'
     pkg_path = sys.argv[1]
@@ -131,8 +131,8 @@ if __name__ == '__main__':
         if re.search('cloudshell-automation-api-.*', file):
             shutil.copy2(os.path.join(local_packages_path, file), dependencies_dest_folder)
 
-    #write_version_file(pkg_path)
-    #write_setup_file(pkg_path)
-    #write_manifest(pkg_path)
-    #write_readme(pkg_path)
+            #write_version_file(pkg_path)
+            #write_setup_file(pkg_path)
+            #write_manifest(pkg_path)
+            #write_readme(pkg_path)
 
