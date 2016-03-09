@@ -96,7 +96,7 @@ if __name__ == '__main__':
         print 'Found {} folder, clearning'.format(dependencies_dest_folder)
         shutil.rmtree(dependencies_dest_folder)
 
-    os.mkdirs(dependencies_dest_folder)
+    os.makedirs(dependencies_dest_folder)
 
     for file in os.listdir(pkg_path):
         file_path = os.path.join(pkg_path, file)
