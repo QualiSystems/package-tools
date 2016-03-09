@@ -105,7 +105,7 @@ if __name__ == '__main__':
     for file in os.listdir(pkg_path):
         file_path = os.path.join(pkg_path, file)
 
-        if re.search(INSTALLATION_PACKAGE_NAME, file) or file in [dependencies_folder_name, dependencies_dest_folder, local_packages] :
+        if re.search(INSTALLATION_PACKAGE_NAME, file) or file in [dependencies_folder_name, dependencies_dest_folder, 'local_packages'] :
             continue
         elif re.search('[27]\.0', file):
             os.remove(file_path)
