@@ -125,6 +125,9 @@ if __name__ == '__main__':
         else:
             move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
 
+    # --- copy local_packages to package folder
+    print 'CopyTree {} to {}'.format(LOCAL_PACKAGES, local_packages_path)
+    shutil.copytree(LOCAL_PACKAGES, local_packages_path)
 
     # ---- add cloudshell-* dependencies to  LOCAL_PACKAGES ---------
     for file in os.listdir(dependencies_dest_folder):
