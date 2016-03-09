@@ -46,7 +46,7 @@ def extract_zip(zip_file, dest_folder):
     fh.close()
 
 def move_file_to_folder(src_file , dest_file):
-    print 'Moving {} tp {}'.format(src_file, dest_file)
+    print 'Moving {} to {}'.format(src_file, dest_file)
     os.rename(src_file, dest_file)
 
 def write2file(fname, output_str):
@@ -99,13 +99,13 @@ if __name__ == '__main__':
         print 'Found {} folder, clearning'.format(dependencies_dest_folder)
         shutil.rmtree(dependencies_dest_folder)
 
-    print 'Trying to create {0}'.format(dependencies_dest_folder)
+    print 'Creating {0}'.format(dependencies_dest_folder)
     os.makedirs(dependencies_dest_folder)
 
     for file in os.listdir(pkg_path):
         file_path = os.path.join(pkg_path, file)
 
-        if re.search(INSTALLATION_PACKAGE_NAME, file) or file in [dependencies_folder_name, dependencies_dest_folder] :
+        if re.search(INSTALLATION_PACKAGE_NAME, file) or file in [dependencies_folder_name, dependencies_dest_folder, local_packages] :
             continue
         elif re.search('[27]\.0', file):
             os.remove(file_path)
