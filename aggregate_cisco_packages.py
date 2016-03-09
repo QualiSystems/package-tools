@@ -125,8 +125,6 @@ if __name__ == '__main__':
     local_packages_path = os.path.join(pkg_path, LOCAL_PACKAGES)
     print 'CopyTree {} to {}'.format(LOCAL_PACKAGES, local_packages_path)
     shutil.copytree(LOCAL_PACKAGES, local_packages_path)
-    except:
-        pass
 
     for file in os.listdir(dependencies_dest_folder):
         if re.search('cloudshell-.*', file):
