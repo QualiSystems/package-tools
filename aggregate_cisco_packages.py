@@ -46,6 +46,7 @@ def extract_zip(zip_file, dest_folder):
     fh.close()
 
 def move_file_to_folder(src_file , dest_file):
+    print 'Moving {} tp {}'.format(src_file, dest_file)
     os.rename(src_file, dest_file)
 
 def write2file(fname, output_str):
@@ -82,6 +83,8 @@ if __name__ == '__main__':
     # package folder cloudshell-networking-cisco-1.0.10
     # aggregate_cisco_packages Package 1.0.10
 
+    print 'ARGS: '
+    print sys.argv
 
     LOCAL_PACKAGES = 'local_packages'
     #pkg_path='..\Package\\networking-cisco-package-1.0.30'
@@ -96,6 +99,7 @@ if __name__ == '__main__':
         print 'Found {} folder, clearning'.format(dependencies_dest_folder)
         shutil.rmtree(dependencies_dest_folder)
 
+    print 'Trying to create {0}'.format(dependencies_dest_folder)
     os.makedirs(dependencies_dest_folder)
 
     for file in os.listdir(pkg_path):
@@ -119,8 +123,8 @@ if __name__ == '__main__':
 
     # add cloudshell-* dependencies to  LOCAL_PACKAGES
     local_packages_path = os.path.join(pkg_path, LOCAL_PACKAGES)
-    try:
-        shutil.copytree(LOCAL_PACKAGES, local_packages_path)
+    print 'CopyTree {} to {}'.format(LOCAL_PACKAGES, local_packages_path)
+    shutil.copytree(LOCAL_PACKAGES, local_packages_path)
     except:
         pass
 
