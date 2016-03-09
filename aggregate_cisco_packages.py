@@ -35,7 +35,7 @@ MANIFEST_TEMPLATE="""include *.txt
 global-include *.ini
 """
 README_TEMPLATE="""CloudShell $PACKAGE_NAME package powered by QualiSystems"""
-
+INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
 
 def extract_zip(zip_file, dest_folder):
     fname = os.path.join(pkg_path, file)
@@ -76,13 +76,13 @@ def write_setup_file(pkg_path):
     setup_file_name = os.path.join(pkg_path, 'setup.py')
     write2file(setup_file_name, SETUP_TEMPLATE)
 
-INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
+
 
 if __name__ == '__main__':
     # package folder cloudshell-networking-cisco-1.0.10
     # aggregate_cisco_packages Package 1.0.10
 
-    global INSTALLATION_PACKAGE_NAME
+
     LOCAL_PACKAGES = 'local_packages'
     #pkg_path='..\Package\\networking-cisco-package-1.0.30'
     pkg_path = sys.argv[1]
