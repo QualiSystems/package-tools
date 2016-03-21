@@ -1,14 +1,14 @@
 [distutils]
-    index-servers
+index-servers=
     pypi
     pypitest
 
-[pypi]
-    repository=https://pypi.python.org/pypi
-    username=quali
-    password=qazWSX1234
-
 [pypitest]
-    repository=https://testpypi.python.org/pypi
-    username=quali
-    password=qazWSX1234
+repository = https://testpypi.python.org/pypi
+username = quali
+password = qazWSX1234
+
+[pypi]
+repository = https://pypi.python.org/pypi
+username = quali
+password = qazWSX1234
