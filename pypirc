@@ -4,11 +4,11 @@ index-servers=
     pypitest
 
 [pypitest]
-repository = https://testpypi.python.org/pypi
-username = quali
-password = qazWSX1234
+repository: https://testpypi.python.org/pypi
+username: quali
+password: qazWSX1234
 
 [pypi]
-repository = https://pypi.python.org/pypi
-username = quali
-password = qazWSX1234
+repository: https://pypi.python.org/pypi
+username: quali
+password: qazWSX1234
