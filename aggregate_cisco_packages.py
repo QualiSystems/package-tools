@@ -120,8 +120,7 @@ if __name__ == '__main__':
             print 'Extracting {} to {}'.format(file_path, dependencies_dest_folder)
             extract_zip(file_path, dependencies_dest_folder)
             os.remove(file_path)
-        elif re.search('cloudshell-automation-api*', file):
-            os.remove(file_path)
+        
         else:
             move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
 
@@ -133,8 +132,8 @@ if __name__ == '__main__':
             shutil.copy2(os.path.join(dependencies_dest_folder, file), local_packages_path)
 
 	# --- copy local_packages to package folder
-    #print 'CopyTree {} to {}'.format(LOCAL_PACKAGES, local_packages_path)
-    #shutil.copytree(LOCAL_PACKAGES, local_packages_path)
+    print 'CopyTree {} to {}'.format(LOCAL_PACKAGES, local_packages_path)
+    shutil.copytree(LOCAL_PACKAGES, local_packages_path)
 	
     ## copy automation-api from local-packages to dependencies
     #for file in os.listdir(local_packages_path):
