@@ -20,21 +20,21 @@ with open('test_requirements.txt') as f_tests:
 
 setup(
     name='cloudshell-networking-cisco-ios-package',
-    url='http://www.qualisystems.com/',
-    author='QualiSystems',
-    author_email='info@qualisystems.com',
+    url='http://www.quali.com/',
+    author='Quali',
+    author_email='info@quali.com',
     packages=find_packages(),
 	install_requires=required,
     tests_require=required_for_tests,
     version=version_from_file,
-    description='QualiSystems networking cisco IOS specific Package',
+    description='Quali networking cisco IOS specific Package',
     include_package_data = True
 )"""
 
 MANIFEST_TEMPLATE="""include *.txt
 global-include *.ini
 """
-README_TEMPLATE="""CloudShell $PACKAGE_NAME package powered by QualiSystems"""
+README_TEMPLATE="""CloudShell $PACKAGE_NAME package powered by Quali"""
 package_name = 'cloudshell-networking-cisco-ios'
 
 def extract_zip(zip_file, dest_folder):
@@ -134,11 +134,11 @@ if __name__ == '__main__':
         if re.search('cloudshell-.*', file):
             shutil.copy2(os.path.join(dependencies_dest_folder, file), local_packages_path)
 
-    # copy automation-api from local-packages to dependencies
-    for file in os.listdir(local_packages_path):
-        if re.search('cloudshell-automation-api-.*', file):
-            shutil.copy2(os.path.join(local_packages_path, file), dependencies_dest_folder)
-            break
+    ## copy automation-api from local-packages to dependencies
+    #for file in os.listdir(local_packages_path):
+    #    if re.search('cloudshell-automation-api-.*', file):
+    #        shutil.copy2(os.path.join(local_packages_path, file), dependencies_dest_folder)
+    #        break
 
     #write_version_file(pkg_path)
     #write_setup_file(pkg_path)
