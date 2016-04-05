@@ -132,8 +132,8 @@ if __name__ == '__main__':
             shutil.copy2(os.path.join(dependencies_dest_folder, file), local_packages_path)
 
 	# --- copy local_packages to package folder
-    print 'CopyTree {} to {}'.format(LOCAL_PACKAGES, local_packages_path)
-    shutil.copytree(LOCAL_PACKAGES, local_packages_path)
+    #print 'CopyTree {} to {}'.format(LOCAL_PACKAGES, local_packages_path)
+    #shutil.copytree(LOCAL_PACKAGES, local_packages_path)
 	
     ## copy automation-api from local-packages to dependencies
     #for file in os.listdir(local_packages_path):
