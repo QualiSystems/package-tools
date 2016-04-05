@@ -124,8 +124,14 @@ if __name__ == '__main__':
         else:
             move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
 
-    
+    # ---- clear LOCAL_PACKAGES folder ---------    
+	if os.path.exists(local_packages_path):
+			print 'Found {} folder, clearning'.format(local_packages_path)
+			shutil.rmtree(local_packages_path)
 
+    print 'Creating {0}'.format(local_packages_path)
+    os.makedirs(local_packages_path)
+	
     # ---- add cloudshell-* dependencies to  LOCAL_PACKAGES ---------
     for file in os.listdir(dependencies_dest_folder):
         if re.search('cloudshell-.*', file):
