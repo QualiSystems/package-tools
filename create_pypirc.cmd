@@ -6,9 +6,9 @@ IF [%3] == [] GOTO Usage
 SET repo=%1
 SET username=%2
 SET password=%3
-SET pypirc_path=%HOMEDRIVE%%HOMEPATH%
+SET pypirc_path=%HOMEDRIVE%%HOMEPATH%\.pypirc
 
-IF EXIST %pypirc_path% DEL %pypirc_path%
+IF EXIST %pypirc_path% DEL /F /Q %pypirc_path%
 
 echo [distutils]>> %pypirc_path%
 echo index-servers =>> %pypirc_path%
