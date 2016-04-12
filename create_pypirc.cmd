@@ -6,20 +6,21 @@ IF [%3] == [] GOTO Usage
 SET repo=%1
 SET username=%2
 SET password=%3
+SET pypirc_path=%HOMEDRIVE%%HOMEPATH%
 
-IF EXIST .pypirc. DEL .pypirc.
+IF EXIST %pypirc_path% DEL %pypirc_path%
 
-echo [distutils]>> .pypirc.
-echo index-servers =>> .pypirc.
-echo   %repo%>> .pypirc.
-echo[>> .pypirc.
-echo [%repo%]>> .pypirc.
-echo repository=https://%repo%.python.org/pypi>> .pypirc.
-echo username=%username%>> .pypirc.
-echo password=%password%>> .pypirc.
-echo[>> .pypirc.
+echo [distutils]>> %pypirc_path%
+echo index-servers =>> %pypirc_path%
+echo   %repo%>> %pypirc_path%
+echo[>> %pypirc_path%
+echo [%repo%]>> %pypirc_path%
+echo repository=https://%repo%.python.org/pypi>> %pypirc_path%
+echo username=%username%>> %pypirc_path%
+echo password=%password%>> %pypirc_path%
+echo[>> %pypirc_path%
 
-ECHO .pypirc was successfully created
+ECHO %pypirc_path% was successfully created
 
 GOTO End
 
