@@ -24,5 +24,6 @@ ECHO publish_package [pypi_repository] [username] [password] [package_relative_p
 ECHO.
 ECHO Sample:
 ECHO publish_package pypi Quali PASSWORD package_relative_path
+EXIT /B 1
 
 :End
