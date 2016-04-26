@@ -9,5 +9,6 @@ popd
 goto end
 :PythonMissing
 ECHO Python is missing 
+EXIT /B 1
 
 :end
