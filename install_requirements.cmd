@@ -1,4 +1,13 @@
 pushd ..\%1
-%programdata%\Qualisystems\QsPython27\Scripts\pip install -v -r ..\%2\requirements.txt
+SET PythonPath=%programdata%\Qualisystems\QsPython27
+IF NOT EXIST %PythonPath% GOTO PythonMissing
+
+%PythonPath%\Scripts\pip install -v -r ..\%2\requirements.txt
 popd
-%programdata%\Qualisystems\QsPython27\python -m pip install --upgrade pip
+%PythonPath%\python -m pip install --upgrade pip
+
+goto end
+:PythonMissing
+ECHO Python is missing 
+
+:end
