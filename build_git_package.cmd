@@ -1,4 +1,3 @@
-@ECHO OFF
 pushd ..\%1
 for %%X in (python.exe) do (set PythonPath=%%~$PATH:X)
 IF NOT DEFINED PythonPath GOTO PythonMissing
