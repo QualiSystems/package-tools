@@ -6,7 +6,8 @@ dir
 IF EXIST dependencies RMDIR /q /s dependencies
 MKDIR dependencies
 
-%programdata%\qualisystems\qspython27\Scripts\pip download -r requirements.txt -d dependencies --no-cache-dir
+#%programdata%\qualisystems\qspython27\Scripts\pip download -r requirements.txt -d dependencies --no-cache-dir
+pip download -r requirements.txt -d dependencies --no-cache-dir
 #del dependencies\cloudshell*
 
 
