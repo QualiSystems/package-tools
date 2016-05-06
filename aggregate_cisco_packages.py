@@ -85,7 +85,7 @@ if __name__ == '__main__':
     print sys.argv
 
     LOCAL_PACKAGES = 'local_packages'
-    #pkg_path='..\Package\\networking-cisco-package-1.0.30'
+    
     if len(sys.argv) < 3:
         print 'Usage: aggregate_cisco_packages.py [source_package_path] [package_name]'
         sys.exit(1)
