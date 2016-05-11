@@ -77,6 +77,38 @@ def write_setup_file(pkg_path):
     write2file(setup_file_name, SETUP_TEMPLATE)
 
 
+
+def filter_downloaded_dependency_version(local_packages, dependencies_folder_path):
+    ''' Filter duplicated package versions, leave only the same as in 'local_packages' to keep recent versions
+
+    :param local_package_list: local_packages folder
+    :param dependencies_folder_path:
+    :return:
+    '''
+
+    local_package_names = []    # list of packages without versions
+    local_package_list = []
+    for name in os.listdir(local_packages):
+        res = re.search('(cloudshell-[\w-]+)-+', name)
+        if res:
+            local_package_names.append(res.group(1))
+            local_package_list.append(name)
+
+    for package in os.listdir(dependencies_folder_path):
+        if package in local_package_list:
+            continue
+
+        res = re.search('(cloudshell-[\w-]+)-+', package)
+        if res:
+            package_name = res.group(1)
+            if package_name in local_package_names:
+                print 'Deleting ', os.path.join(dependencies_folder_path, package_name)
+                os.remove(os.path.join(dependencies_folder_path, package))
+            else:
+                print 'KEEP ', os.path.join(dependencies_folder_path, package)
+
+
+
 if __name__ == '__main__':
     # package folder cloudshell-networking-cisco-1.0.10
     # aggregate_cisco_packages Package 1.0.10
@@ -99,6 +131,22 @@ if __name__ == '__main__':
     dependencies_dest_folder = os.path.join(pkg_path, dependencies_folder_name )
     local_packages_path = os.path.join(pkg_path, LOCAL_PACKAGES)
 
+    # ---- clear LOCAL_PACKAGES folder ---------
+    if os.path.exists(local_packages_path):
+        print 'Found {} folder, clearning'.format(local_packages_path)
+        shutil.rmtree(local_packages_path)
+    print 'Creating {0}'.format(local_packages_path)
+    os.makedirs(local_packages_path)
+
+    # -- copy all cloudshell* packages to LOCAL_PACKAGES (without '-dependencies') ---
+    for file in os.listdir(pkg_path):
+        file_path = os.path.join(pkg_path, file)
+        if re.search('-dependencies\.zip', file) or file == LOCAL_PACKAGES:
+            continue
+        else:
+            shutil.copy2(os.path.join(pkg_path, file), local_packages_path)
+
+
     # ---- clear dependencies folder -----
     if os.path.exists(dependencies_dest_folder):
         print 'Found {} folder, clearning'.format(dependencies_dest_folder)
@@ -115,8 +163,6 @@ if __name__ == '__main__':
         if re.search(package_name, file) or file in [dependencies_folder_name, dependencies_dest_folder, LOCAL_PACKAGES] :
             print 'Skip.'
             continue
-        elif re.search('[27]\.0', file):
-            os.remove(file_path)
         elif re.search('-dependencies\.zip', file):
             print 'Extracting {} to {}'.format(file_path, dependencies_dest_folder)
             extract_zip(file_path, dependencies_dest_folder)
@@ -125,18 +171,6 @@ if __name__ == '__main__':
         else:
             move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
 
-            # ---- clear LOCAL_PACKAGES folder ---------
-        if os.path.exists(local_packages_path):
-            print 'Found {} folder, clearning'.format(local_packages_path)
-            shutil.rmtree(local_packages_path)
-
-    print 'Creating {0}'.format(local_packages_path)
-    os.makedirs(local_packages_path)
-
-    # ---- add cloudshell-* dependencies to  LOCAL_PACKAGES ---------
-    for file in os.listdir(dependencies_dest_folder):
-        if re.search('cloudshell-.*', file):
-            shutil.copy2(os.path.join(dependencies_dest_folder, file), local_packages_path)
-
-	
-
+    # --- clean duplicates in dependencies, leave only local packages ---
+    filter_downloaded_dependency_version(local_packages_path, dependencies_dest_folder)
+    print 'done'
