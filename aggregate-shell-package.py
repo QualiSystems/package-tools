@@ -19,23 +19,23 @@ with open('test_requirements.txt') as f_tests:
     required_for_tests = f_tests.read().splitlines()
 
 setup(
-    name='$PACKAGE_NAME',
-    url='http://www.qualisystems.com/',
-    author='QualiSystems',
-    author_email='info@qualisystems.com',
+    name='$PKG_NAME',
+    url='http://www.quali.com/',
+    author='Quali',
+    author_email='info@quali.com',
     packages=find_packages(),
 	install_requires=required,
     tests_require=required_for_tests,
     version=version_from_file,
-    description='$PACKAGE_DESCRIPTION',
+    description='Quali networking cisco IOS specific Package',
     include_package_data = True
 )"""
 
 MANIFEST_TEMPLATE="""include *.txt
 global-include *.ini
 """
-README_TEMPLATE="""CloudShell $PACKAGE_NAME package powered by QualiSystems"""
-PACKAGE_DESCRIPTION =
+README_TEMPLATE="""CloudShell $PACKAGE_NAME package powered by Quali"""
+package_name = 'cloudshell-networking-cisco-ios'
 
 def extract_zip(zip_file, dest_folder):
     fname = os.path.join(pkg_path, file)
@@ -54,7 +54,7 @@ def write2file(fname, output_str):
     fhandler.close()
 
 def write_version_file(pkg_path):
-    # set cururent version to versioln.txt file
+
     res = re.search("-([\d\.]+)", pkg_path)
     pkg_version = res.group(1)
 
@@ -63,87 +63,80 @@ def write_version_file(pkg_path):
     write2file(ver_file_path, pkg_version)
 
 def write_manifest(pkg_path):
-    # write manifest.in file
+    # set version to file
     manifest_file_path = os.path.join(pkg_path, 'Manifest.in')
     write2file(manifest_file_path, MANIFEST_TEMPLATE)
 
 
 def write_readme(pkg_path):
-    # write readme.txt file
     readme_file_path = os.path.join(pkg_path, 'README.txt')
     write2file(readme_file_path, README_TEMPLATE)
 
 def write_setup_file(pkg_path):
-    # create setup.py file
-    pkg_name_str = re.sub('-', ' ', INSTALLATION_PACKAGE_NAME)
-
-    SETUP_TEMPLATE = re.sub('\$PACKAGE_NAME', pkg_name_str)
-    SETUP_TEMPLATE = re.sub()
     setup_file_name = os.path.join(pkg_path, 'setup.py')
     write2file(setup_file_name, SETUP_TEMPLATE)
 
-
-LOCAL_PACKAGES = 'local_packages'
-INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
 
 if __name__ == '__main__':
     # package folder cloudshell-networking-cisco-1.0.10
     # aggregate_cisco_packages Package 1.0.10
 
-    #INSTALLATION_PACKAGE_NAME = 'cloudshell-networking-cisco-ios'
-    LOCAL_PACKAGES = 'local_packages'
-    #pkg_path='..\Package\\networking-cisco-package-1.0.30'
-    pkg_path = sys.argv[1]
-    global INSTALLATION_PACKAGE_NAME
-    INSTALLATION_PACKAGE_NAME = sys.argv[2]
+    print 'ARGS: '
+    print sys.argv
+    global package_name
 
-    dependencies_folder_name = 'dependencies'
+    LOCAL_PACKAGES = 'local_packages'
+
+    if len(sys.argv) < 3:
+        print 'Usage: aggregate_shell_package.py [package_folder_path] [package_name]'
+        sys.exit(1)
+
+    pkg_path = sys.argv[1]
+    package_name =  sys.argv[2]
     local_path = os.getcwd()
 
+    dependencies_folder_name = 'dependencies'
     dependencies_dest_folder = os.path.join(pkg_path, dependencies_folder_name )
+    local_packages_path = os.path.join(pkg_path, LOCAL_PACKAGES)
+
+    # ---- clear dependencies folder -----
     if os.path.exists(dependencies_dest_folder):
         print 'Found {} folder, clearning'.format(dependencies_dest_folder)
         shutil.rmtree(dependencies_dest_folder)
 
-    os.mkdir(dependencies_dest_folder)
+    print 'Creating {0}'.format(dependencies_dest_folder)
+    os.makedirs(dependencies_dest_folder)
 
+    # ---- extract/copy cloudshell and x-dependencies.zip into dependencies ----
     for file in os.listdir(pkg_path):
         file_path = os.path.join(pkg_path, file)
+        print 'Working with {}'.format(file_path)
 
-        if re.search(INSTALLATION_PACKAGE_NAME, file) or file in [dependencies_folder_name, dependencies_dest_folder] :
+        if re.search(package_name, file) or file in [dependencies_folder_name, dependencies_dest_folder, LOCAL_PACKAGES] :
+            print 'Skip.'
             continue
         elif re.search('[27]\.0', file):
             os.remove(file_path)
         elif re.search('-dependencies\.zip', file):
+            print 'Extracting {} to {}'.format(file_path, dependencies_dest_folder)
             extract_zip(file_path, dependencies_dest_folder)
             os.remove(file_path)
-        elif re.search('cloudshell-automation-api*', file):
-            os.remove(file_path)
+
         else:
-
-            #try:
             move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
-            #except:
-            #    pass
 
-    # add cloudshell-* dependencies to  LOCAL_PACKAGES
-    local_packages_path = os.path.join(pkg_path, LOCAL_PACKAGES)
-    try:
-        shutil.copytree(LOCAL_PACKAGES, local_packages_path)
-    except:
-        pass
+            # ---- clear LOCAL_PACKAGES folder ---------
+        if os.path.exists(local_packages_path):
+            print 'Found {} folder, clearning'.format(local_packages_path)
+            shutil.rmtree(local_packages_path)
 
+    print 'Creating {0}'.format(local_packages_path)
+    os.makedirs(local_packages_path)
+
+    # ---- add cloudshell-* dependencies to  LOCAL_PACKAGES ---------
     for file in os.listdir(dependencies_dest_folder):
         if re.search('cloudshell-.*', file):
             shutil.copy2(os.path.join(dependencies_dest_folder, file), local_packages_path)
 
-    # copy automation-api from local-packages to dependencies
-    for file in os.listdir(local_packages_path):
-        if re.search('cloudshell-automation-api-.*', file):
-            shutil.copy2(os.path.join(local_packages_path, file), dependencies_dest_folder)
-
-            #write_version_file(pkg_path)
-            #write_setup_file(pkg_path)
-            #write_manifest(pkg_path)
-            #write_readme(pkg_path)
+	
 
