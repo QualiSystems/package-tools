@@ -138,10 +138,10 @@ if __name__ == '__main__':
     print 'Creating {0}'.format(local_packages_path)
     os.makedirs(local_packages_path)
 
-    # -- copy all cloudshell* packages to LOCAL_PACKAGES (without '-dependencies') ---
+    # -- copy all cloudshell* packages to LOCAL_PACKAGES (without '-dependencies') except package itself ---
     for file in os.listdir(pkg_path):
         file_path = os.path.join(pkg_path, file)
-        if re.search('-dependencies\.zip', file) or file == LOCAL_PACKAGES:
+        if re.search('-dependencies\.zip', file) or file == LOCAL_PACKAGES or re.search(package_name, file):
             continue
         else:
             shutil.copy2(os.path.join(pkg_path, file), local_packages_path)
