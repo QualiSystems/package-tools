@@ -35,7 +35,7 @@ MANIFEST_TEMPLATE="""include *.txt
 global-include *.ini
 """
 README_TEMPLATE="""CloudShell $PACKAGE_NAME package powered by Quali"""
-package_name = 'cloudshell-networking-cisco-ios'
+
 
 def extract_zip(zip_file, dest_folder):
     fname = os.path.join(pkg_path, file)
