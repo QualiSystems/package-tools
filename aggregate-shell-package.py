@@ -160,7 +160,7 @@ if __name__ == '__main__':
         file_path = os.path.join(pkg_path, file)
         print 'Working with {}'.format(file_path)
 
-        if re.search(package_name, file) or file in [dependencies_folder_name, dependencies_dest_folder, LOCAL_PACKAGES] :
+        if file in [dependencies_folder_name, dependencies_dest_folder, LOCAL_PACKAGES] :
             print 'Skip.'
             continue
         elif re.search('-dependencies\.zip', file):
