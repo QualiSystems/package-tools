@@ -12,3 +12,8 @@ password: qazWSX1234
 repository: https://pypi.python.org/pypi
 username: quali
 password: qazWSX1234
+
+[qualipi]
+repository: https://192.168.42.82:4040/pypi
+username: quali
+password: quali123
