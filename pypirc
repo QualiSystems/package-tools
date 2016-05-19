@@ -2,7 +2,6 @@
 index-servers=
     pypi
     pypitest
-	qualipi 
 
 [pypitest]
 repository: https://testpypi.python.org/pypi
