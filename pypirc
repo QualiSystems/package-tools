@@ -14,6 +14,6 @@ username: quali
 password: qazWSX1234
 
 [qualipi]
-repository: http://192.168.85.59:3141/root/pypi
+repository: http://192.168.85.59:3141/
 username: root
 password: quali
