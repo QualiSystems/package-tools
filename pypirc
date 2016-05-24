@@ -2,19 +2,19 @@
 index-servers=
     pypi
     testpypi
-    qualipi
+    qualipypi
 
 [testpypi]
-repository: https://testpypi.python.org/pypi
+repository: https://testpypi.python.org/pypi/
 username: quali
 password: qazWSX1234
 
 [pypi]
-repository: https://pypi.python.org/pypi
+repository: https://pypi.python.org/pypi/
 username: quali
 password: qazWSX1234
 
-[qualipi]
-repository: http://192.168.85.59:3141/quali/pypi
+[qualipypi]
+repository: http://192.168.85.59:3141/quali/pypi/
 username: quali
 password: quali
