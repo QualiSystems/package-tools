@@ -1,10 +1,10 @@
 [distutils]
 index-servers=
     pypi
-    pypitest
+    testpypi
     qualipi
 
-[pypitest]
+[testpypi]
 repository: https://testpypi.python.org/pypi
 username: quali
 password: qazWSX1234
@@ -15,6 +15,6 @@ username: quali
 password: qazWSX1234
 
 [qualipi]
-repository: http://192.168.85.59:3141/
-username: root
+repository: http://192.168.85.59:3141/quali/pypi
+username: quali
 password: quali
