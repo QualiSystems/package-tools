@@ -47,9 +47,12 @@ def extract_zip(zip_file, dest_folder):
     fh.close()
 
 def move_file_to_folder(src_file , dest_file):
-
+    print '\n\nCheck if file exists {}:'.format(dest_file)
     if not os.path.exists(dest_file):
+        print 'NO'
         os.rename(src_file, dest_file)
+    else:
+        print 'YES, skip'
 
 def write2file(fname, output_str):
     fhandler = open(fname, 'w')
