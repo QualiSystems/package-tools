@@ -4,6 +4,7 @@ import os
 import re
 import zipfile
 import shutil
+import traceback
 
 SETUP_TEMPLATE="""
 from setuptools import setup, find_packages
@@ -165,9 +166,12 @@ if __name__ == '__main__':
             continue
         elif re.search('-dependencies\.zip', file):
             print 'Extracting {} to {}'.format(file_path, dependencies_dest_folder)
-            extract_zip(file_path, dependencies_dest_folder)
-            os.remove(file_path)
-
+            try:
+                extract_zip(file_path, dependencies_dest_folder)
+                os.remove(file_path)
+            except Exception, e:
+                print (traceback.format_exc())
+                pass
         else:
             move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
 
