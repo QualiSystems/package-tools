@@ -173,8 +173,15 @@ if __name__ == '__main__':
                 print (traceback.format_exc())
                 pass
         else:
-            move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
-
+            try:
+                move_file_to_folder(file_path, os.path.join(dependencies_dest_folder, file))
+            except Exception, e:
+                print (traceback.format_exc())
+                pass
     # --- clean duplicates in dependencies, leave only local packages ---
-    filter_downloaded_dependency_version(local_packages_path, dependencies_dest_folder)
+    try:
+        filter_downloaded_dependency_version(local_packages_path, dependencies_dest_folder)
+    except Exception, e:
+        print (traceback.format_exc())
+        pass
     print 'done'
