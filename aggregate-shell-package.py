@@ -48,11 +48,8 @@ def extract_zip(zip_file, dest_folder):
 
 def move_file_to_folder(src_file , dest_file):
 
-    if os.path.exists(dest_file):
-        print 'Found {} folder, clearning'.format(dest_file)
-        shutil.rmtree(dest_file)
-
-    os.rename(src_file, dest_file)
+    if not os.path.exists(dest_file):
+        os.rename(src_file, dest_file)
 
 def write2file(fname, output_str):
     fhandler = open(fname, 'w')
