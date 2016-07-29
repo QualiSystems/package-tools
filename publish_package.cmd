@@ -14,8 +14,8 @@ SET package_relative_path=%5
 python update_pypirc.py %index_server% %repository% %username% %password%
 pushd %package_relative_path%
 python setup.py sdist --format zip 
-python setup.py register -r %repo% 
-python setup.py sdist upload -r %repo%
+python setup.py register -r %repository% 
+python setup.py sdist upload -r %repository%
 popd
 
 GOTO End
