@@ -11,6 +11,9 @@ SET username=%3
 SET password=%4
 SET package_relative_path=%5
 
+for %%X in (python.exe) do (set PythonPath=%%~$PATH:X)
+IF NOT DEFINED PythonPath GOTO PythonMissing
+
 python update_pypirc.py %index_server% %repository% %username% %password%
 pushd %package_relative_path%
 python setup.py sdist --format zip 
@@ -18,6 +21,11 @@ python setup.py register -r %repository%
 python setup.py sdist upload -r %repository%
 popd
 
+GOTO End
+
+:PythonMissing
+ECHO Python is missing 
+EXIT /B 1
 GOTO End
 
 :Error
