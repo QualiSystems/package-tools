@@ -86,7 +86,6 @@ def write_setup_file(pkg_path):
 
 def filter_downloaded_dependency_version(local_packages, dependencies_folder_path):
     ''' Filter duplicated package versions, leave only the same as in 'local_packages' to keep recent versions
-
     :param local_package_list: local_packages folder
     :param dependencies_folder_path:
     :return:
@@ -166,7 +165,7 @@ if __name__ == '__main__':
         file_path = os.path.join(pkg_path, file)
         print 'Working with {}'.format(file_path)
 
-        if re.search(package_name, file) or file in [dependencies_folder_name, dependencies_dest_folder, LOCAL_PACKAGES] :
+        if file in [dependencies_folder_name, dependencies_dest_folder, LOCAL_PACKAGES] :
             print 'Skip.'
             continue
         elif re.search('-dependencies\.zip', file):
